@@ -2,9 +2,9 @@ const mssql = require("mssql");
 
 const config = {
     user: "admin",
-    server: "mhproductions.ct0og6k0co98.us-west-2.rds.amazonaws.com",
+    server: "trinity.cdww086aw7me.us-east-2.rds.amazonaws.com",
     password: "Roku1sGr8t!",
-    database: "mhproductions",
+    database: "trinityhub",
     pool: {
         max: 10,
         min: 0,
