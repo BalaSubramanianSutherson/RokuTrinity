@@ -132,12 +132,15 @@ async function updateLiveContents(req, res, next){
 
 
 // Setting a cron job for every min
-cron.schedule('*/2 * * * *', ()=> {
-    console.log('running every minute 1, 2, 4 and 5');
-  });
-cron.schedule('*/2 * * * *', getMovieContents);
-cron.schedule('*/3 * * * *', getSeriesContents);
-cron.schedule('*/4 * * * *', getLiveStreamContents);
+// cron.schedule('*/2 * * * *', ()=> {
+//     console.log('running every minute 1, 2, 4 and 5');
+//   });
+ // every 2 hours 
+cron.schedule('0 */2 * * *', getMovieContents);
+// every-3-hours
+cron.schedule('0 */3 * * *', getSeriesContents);
+// every 5 hours
+cron.schedule('0 */5 * * *', getLiveStreamContents);
 
 module.exports = {
     getContents,
