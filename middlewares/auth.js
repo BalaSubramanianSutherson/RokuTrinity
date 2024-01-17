@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const excludeRoutes = ['/user/login', '/user/signup'];
+const excludeRoutes = ['/user/login', '/user/signup', '/content/search', '/content/movies',  '/content/series',  '/content/stream'];
 
 
 const authenticateToken = (req, res, next) => {
