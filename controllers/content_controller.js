@@ -4,20 +4,25 @@ const cron = require('node-cron');
 
 async function getContents(req, res, next){
     console.log('Get Contents request'+ req.query.title)
-    if(req.query.title){
-        const storedMovieData = JSON.parse(fs.readFileSync('movies.json'));
-        const movies = storedMovieData.filter(node => node.title && node.title.toLowerCase().includes(req.query.title.toLowerCase()));
-        const storedSeriesData = JSON.parse(fs.readFileSync('series.json'));
-        const series = storedSeriesData.filter(node => node.title && node.title.toLowerCase().includes(req.query.title.toLowerCase()));
-        const storedStreamData = JSON.parse(fs.readFileSync('livestream.json'));
-        const stream = storedStreamData.filter(node => node.name && node.name.toLowerCase().includes(req.query.title.toLowerCase()));
-        const response = { "movies": movies,
-                        "series": series,
-                        "livestream": stream
-                    }
-        res.send(response)
-    }else{
-        res.send("-1")
+    try{
+        if(req.query.title){
+            const storedMovieData = JSON.parse(fs.readFileSync('movies.json'));
+            const movies = storedMovieData.filter(node => node.title && node.title.toLowerCase().includes(req.query.title.toLowerCase()));
+            const storedSeriesData = JSON.parse(fs.readFileSync('series.json'));
+            const series = storedSeriesData.filter(node => node.title && node.title.toLowerCase().includes(req.query.title.toLowerCase()));
+            const storedStreamData = JSON.parse(fs.readFileSync('livestream.json'));
+            const stream = storedStreamData.filter(node => node.name && node.name.toLowerCase().includes(req.query.title.toLowerCase()));
+            const response = { "movies": movies,
+                            "series": series,
+                            "livestream": stream
+                        }
+            res.send(response)
+        }else{
+            res.send("-1")
+        }
+    }catch(err){
+        console.error('Get Contents function error:', err);
+        res.send('[]');
     }
 }
 
