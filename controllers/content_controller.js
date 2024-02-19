@@ -2,16 +2,47 @@ const fs = require('fs');
 const axios = require('axios');
 const cron = require('node-cron');
 
+async function searchMovieContents(req){
+    try{
+        const storedMovieData = JSON.parse(fs.readFileSync('movies.json'));
+        const movies = storedMovieData.filter(node => node.title && node.title.toLowerCase().includes(req.query.title.toLowerCase()));
+        return movies;
+    }catch(err){
+        console.error('Get movie Contents function error:', err);
+        return '[]';
+    }
+}
+
+async function searchSeriesContents(req){
+    try{
+        const storedSeriesData = JSON.parse(fs.readFileSync('series.json'));
+        const series = storedSeriesData.filter(node => node.title && node.title.toLowerCase().includes(req.query.title.toLowerCase()));
+        return series;
+    }catch(err){
+        console.error('Get Series Contents function error:', err);
+        return '[]';
+    }
+}
+
+async function searchLiveStreamContents(req){
+    try{
+        const storedStreamData = JSON.parse(fs.readFileSync('livestream.json'));
+        const stream = storedStreamData.filter(node => node.name && node.name.toLowerCase().includes(req.query.title.toLowerCase()));
+        return stream;
+    }catch(err){
+        console.error('Get Live Stream Contents function error:', err);
+        return '[]';
+    }
+}
+
+
 async function getContents(req, res, next){
     console.log('Get Contents request'+ req.query.title)
     try{
         if(req.query.title){
-            const storedMovieData = JSON.parse(fs.readFileSync('movies.json'));
-            const movies = storedMovieData.filter(node => node.title && node.title.toLowerCase().includes(req.query.title.toLowerCase()));
-            const storedSeriesData = JSON.parse(fs.readFileSync('series.json'));
-            const series = storedSeriesData.filter(node => node.title && node.title.toLowerCase().includes(req.query.title.toLowerCase()));
-            const storedStreamData = JSON.parse(fs.readFileSync('livestream.json'));
-            const stream = storedStreamData.filter(node => node.name && node.name.toLowerCase().includes(req.query.title.toLowerCase()));
+            const movies = searchMovieContents(req);
+            const series = searchSeriesContents(req);
+            const stream = searchLiveStreamContents(req);
             const response = { "movies": movies,
                             "series": series,
                             "livestream": stream
