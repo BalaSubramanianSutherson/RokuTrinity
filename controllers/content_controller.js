@@ -40,9 +40,9 @@ async function getContents(req, res, next){
     console.log('Get Contents request'+ req.query.title)
     try{
         if(req.query.title){
-            const movies = searchMovieContents(req);
-            const series = searchSeriesContents(req);
-            const stream = searchLiveStreamContents(req);
+            const movies = await searchMovieContents(req);
+            const series = await searchSeriesContents(req);
+            const stream = await searchLiveStreamContents(req);
             const response = { "movies": movies,
                             "series": series,
                             "livestream": stream
