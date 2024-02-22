@@ -19,9 +19,9 @@ async function updateMySubscription(req, res, next){
     try{
         console.log(req.user.email)
         const email = req.user.email
-        if(req.body.orderId && req.body.transactionId && req.body.expireId){
+        if(req.body.orderId && req.body.transactionId && req.body.expireIn){
             const id = uuidv4();
-            const insertValues = { param: id, param1: email, param2: req.body.orderId, param3: req.body.transactionId, param4: req.body.expireId };
+            const insertValues = { param: id, param1: email, param2: req.body.orderId, param3: req.body.transactionId, param4: req.body.expireIn };
             console.log(insertValues)
             let insertQuery = "insert into subscription (id, email, order_id, transaction_id, expire_in) values (@param, @param1, @param2, @param3, @param4)"
             let insertResult = await executeInsert(insertQuery,insertValues);
