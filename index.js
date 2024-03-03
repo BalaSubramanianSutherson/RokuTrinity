@@ -19,6 +19,7 @@ const userRouter = require('./routes/user_router');
 const mylistRouter = require('./routes/mylist_router');
 const contentRouter = require('./routes/content_router');
 const subscriptionRouter = require('./routes/subscription_router');
+const playbackRouter = require('./routes/playback_router');
 
 
 app.get('/', (req, res) => {
@@ -29,6 +30,7 @@ app.use('/user', userRouter)
 app.use('/mylist', mylistRouter)
 app.use('/content', contentRouter)
 app.use('/subscription', subscriptionRouter)
+app.use('/playback', playbackRouter)
 
 app.listen(3001, () => {
     console.log("Yey, your server is running on port 3001");
